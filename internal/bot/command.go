@@ -20,3 +20,13 @@ func (b *Bot) RegisterCommands() {
 		b.AddCommand(command)
 	}
 }
+
+func (b *Bot) getCommandName(message twitch.PrivateMessage) {
+	if message.Message[0] == '!' {
+		commandName := message.Message[1:]
+		command, ok := b.commands[commandName]
+		if ok {
+			command.Handler(message, b)
+		}
+	}
+}

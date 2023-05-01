@@ -1,8 +1,6 @@
 package bot
 
 import (
-	"fmt"
-
 	"github.com/gempir/go-twitch-irc/v2"
 )
 
@@ -21,17 +19,8 @@ func NewBot(name string, client *twitch.Client) *Bot {
 }
 
 func (b *Bot) Start() error {
-	fmt.Print("conectado")
-
 	b.client.OnPrivateMessage(func(message twitch.PrivateMessage) {
-		fmt.Print("entro")
-		if message.Message[0] == '!' {
-			commandName := message.Message[1:]
-			command, ok := b.commands[commandName]
-			if ok {
-				command.Handler(message, b)
-			}
-		}
+		b.getCommandName(message)
 	})
 
 	b.client.Join("bypepe77")
