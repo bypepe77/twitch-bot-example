@@ -16,10 +16,10 @@ func main() {
 	}
 
 	client := twitch.NewClient(os.Getenv("CHANNEL"), os.Getenv("OAUTH_TOKEN"))
-	bot := bot.NewBot("bypepe77 bot", client)
+	bot := bot.New("bypepe77 bot", client)
 	bot.RegisterCommands()
 
-	err = bot.Start()
+	err = bot.Start("bypepe77")
 	if err != nil {
 		println(err.Error())
 	}

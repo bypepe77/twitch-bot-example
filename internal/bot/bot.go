@@ -10,7 +10,7 @@ type Bot struct {
 	commands map[string]*Command
 }
 
-func NewBot(name string, client *twitch.Client) *Bot {
+func New(name string, client *twitch.Client) *Bot {
 	return &Bot{
 		Name:     name,
 		client:   client,
@@ -18,12 +18,12 @@ func NewBot(name string, client *twitch.Client) *Bot {
 	}
 }
 
-func (b *Bot) Start() error {
+func (b *Bot) Start(channels ...string) error {
 	b.client.OnPrivateMessage(func(message twitch.PrivateMessage) {
 		b.getCommandName(message)
 	})
 
-	b.client.Join("bypepe77")
+	b.client.Join(channels...)
 
 	err := b.client.Connect()
 	if err != nil {
